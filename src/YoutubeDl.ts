@@ -1,27 +1,28 @@
-import { ExecException } from "child_process";
-const { exec } = require("child_process");
+import {ExecException} from 'child_process';
+
+const {exec} = require('child_process');
 const path = require('path');
 
-const isWin = process.platform === "win32";
+const isWin = process.platform === 'win32';
 
 export class YoutubeDl {
-    public static async getVideoMetadata(url: string, options?: { cli?: "youtube-dl" | "yt-dlp", cliOptions?: string },
+    public static async getVideoMetadata(url: string, options?: { cli?: 'youtube-dl' | 'yt-dlp', cliOptions?: string },
                                          schema?: string[]) {
         options = options || {};
-        options.cli = options.cli || "youtube-dl";
-        options.cliOptions = options.cliOptions || '-f \"best\"';
+        const cli = options.cli || process.env.CLI || 'youtube-dl';
+        const cliOptions = options.cliOptions || '--format \"best\"';
 
-        const bin = path.resolve(__dirname, '../tools/bin/' + options.cli +(isWin ? '.exe' : ''));
-        const command = `${bin} ${options.cliOptions} --dump-single-json --no-warnings ${url}`;
+        const bin = path.resolve(__dirname, '../tools/bin/' + cli + (isWin ? '.exe' : ''));
+        const command = `${bin} ${cliOptions} --dump-single-json --no-warnings --restrict-filenames ${url}`;
         return await new Promise<any>((resolve, reject) => {
             exec(command, (error: ExecException | null, stdout: string, stderr: string) => {
-                if(error) {
+                if (error) {
                     reject({error: error.message, stderr, stdout});
-                    return
+                    return;
                 }
                 try {
                     let resultObject = JSON.parse(stdout);
-                    if(schema) {
+                    if (schema) {
                         resultObject = YoutubeDl.filterKeys(resultObject, schema);
                     }
                     resolve(resultObject);
@@ -32,12 +33,12 @@ export class YoutubeDl {
         });
     }
 
-    private static filterKeys(obj: { [name: string]: any }, keys: string[]){
-        if(!Array.isArray(keys)) {
+    private static filterKeys(obj: { [name: string]: any }, keys: string[]) {
+        if (!Array.isArray(keys)) {
             keys = [keys];
         }
-        const reducer = function(accumulator: { [name: string]: any }, currentValue: string) {
-            if(obj[currentValue]) {
+        const reducer = function (accumulator: { [name: string]: any }, currentValue: string) {
+            if (obj[currentValue]) {
                 accumulator[currentValue] = obj[currentValue];
             }
             return accumulator;

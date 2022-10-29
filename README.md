@@ -1,5 +1,5 @@
 # youtube-dl-server
-A youtube-dl web server, powered by youtube-dl.
+A youtube-dl web server, powered by youtube-dl & yt-dlp.
 
 Intended to provide raw video url and other metadata as a json payload, not as a streaming server.
 
@@ -10,6 +10,9 @@ youtube-dl-server
 ```
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+`develop` Branch:  
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/ssuesskind/youtube-dl-server/tree/deploy)
 
 ## API
 

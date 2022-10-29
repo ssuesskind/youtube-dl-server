@@ -1,4 +1,11 @@
 {
   "name": "youtube-dl-server",
-  "description": "A youtube-dl web server, powered by youtube-dl"
+  "description": "A youtube-dl web server, powered by youtube-dl",
+  "env": {
+    "CLI": {
+      "description": "The cli tool to be used ('youtube-dl' or 'yt-dlp')",
+      "value": "youtube-dl",
+      "required": true
+    }
+  }
 }
