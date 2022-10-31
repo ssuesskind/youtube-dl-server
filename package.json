@@ -25,7 +25,7 @@
   "license": "unlicense",
   "dependencies": {
     "@types/express": "^4.17.14",
-    "@types/node": "^18.11.7",
+    "@types/node": "^18.11.8",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "express": "^4.18.2",

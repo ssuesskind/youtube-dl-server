@@ -6,6 +6,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const YoutubeDl_1 = require("./YoutubeDl");
+const path_1 = __importDefault(require("path"));
+const packageJson = require('../package.json');
 const cors = require('cors');
 const compression = require('compression');
 const boolParser = require('express-query-boolean');
@@ -16,6 +18,9 @@ const port = process.env.PORT || 8080;
 app.use(compression());
 app.use(cors());
 app.use(boolParser());
+app.use(express_1.default.static(path_1.default.join(__dirname, '..', 'public')));
+app.set('view engine', 'pug');
+app.set('views', path_1.default.join(__dirname, '..', 'views'));
 app.get('/v1/video', async (req, res) => {
     var _a, _b;
     try {
@@ -50,6 +55,7 @@ app.get('/v1/video', async (req, res) => {
         res.send(e);
     }
 });
+app.get(['/video', '/info'], async (req, res) => res.redirect('/v1/video'));
 app.get('/watch', async (req, res) => {
     var _a, _b;
     try {
@@ -82,6 +88,15 @@ app.get('/watch', async (req, res) => {
         res.status(500);
         res.send(e);
     }
+});
+app.get('/', async (req, res) => {
+    const defaultParameters = {
+        url: 'youtu.be/dQw4w9WgXcQ',
+        cli: ['yt-dlp', 'youtube-dl'],
+        download: false,
+        cliOptions: '--format best'
+    };
+    res.render('home', Object.assign(Object.assign({}, packageJson), defaultParameters));
 });
 app.listen(port, () => {
     console.log(`Server is listening on http://localhost:${port}`);
