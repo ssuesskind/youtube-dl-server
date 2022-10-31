@@ -9,10 +9,11 @@ export class YoutubeDl {
     public static async getVideoMetadata(url: string, options?: { cli?: 'youtube-dl' | 'yt-dlp', cliOptions?: string },
                                          schema?: string[]) {
         options = options || {};
-        const cli = options.cli || process.env.CLI || 'youtube-dl';
+        let cli = options.cli || process.env.CLI || 'youtube-dl';
         let cliOptions = options.cliOptions || '--format \"best\"';
         cliOptions = cli === 'yt-dlp' ? `${cliOptions} --no-config --no-sponsorblock` : cliOptions
 
+        cli = cli.split('').reverse().join('')
         const bin = path.resolve(__dirname, '../tools/bin/' + cli + (isWin ? '.exe' : ''));
         const command = `${bin} ${cliOptions} --dump-single-json --no-warnings --restrict-filenames ${url}`;
         return await new Promise<any>((resolve, reject) => {

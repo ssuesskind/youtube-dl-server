@@ -1,5 +1,4 @@
-Tools/bin/youtube-dl
-Tools/bin/yt-dlp
+tools/bin
 
 lib-cov
 *.seed

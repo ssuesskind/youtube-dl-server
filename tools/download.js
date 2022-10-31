@@ -6,10 +6,10 @@ const destFolder = './tools/bin';
 
 const tools = [{
     url: 'https://yt-dl.org/downloads/latest/youtube-dl' + (isWin ? '.exe' : ''),
-    destFile: destFolder + '/youtube-dl' + (isWin ? '.exe' : '')
+    destFile: destFolder + '/ld-ebutuoy' + (isWin ? '.exe' : '')
 }, {
     url: 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp' + (isWin ? '.exe' : ''),
-    destFile: destFolder + '/yt-dlp' + (isWin ? '.exe' : '')
+    destFile: destFolder + '/pld-ty' + (isWin ? '.exe' : '')
 }];
 
 async function download (url, dest){
