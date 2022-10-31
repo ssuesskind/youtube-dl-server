@@ -1,0 +1,64 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible' content='ie=edge')
+    title=`${name} v${version}`
+    link(rel='stylesheet' type="text/css" href='/style.css')
+    style.
+      .control { min-width: 400px; }
+      .hero-body { padding: 0 }
+      .hero-body > div { margin: auto }
+      input.checkbox { width: 2.5em;  height: 2.5em; }
+      label.checkbox { margin: auto; display: flex; line-height: 2; }
+      .field-label { margin: auto 1.5rem auto 0; }
+  body
+    section.hero.is-link.is-fullheight
+      div.hero-body
+        div
+          h1.title.has-text-centered #{name}
+          h2.subtitle.has-text-centered v#{version}
+          form(action='/v1/video' method='GET' target='_blank')
+            // url
+            .field.is-horizontal
+              .field-label.is-medium
+                label URL
+              .field-body
+                .field
+                  .control.is-expanded
+                    input.input.is-medium(name='url' autofocus='' type='text' placeholder='URL' value=url)
+            // cli
+            .field.is-horizontal
+              .field-label
+                label CLI
+              .field-body
+                .field
+                  .control.is-expanded
+                    .select.is-fullwidth
+                      select(name='cli')
+                        each value in cli
+                          option(value=value) #{value}
+            // cliOptions
+            .field.is-horizontal
+              .field-label
+                label Options
+              .field-body
+                .field
+                  .control.is-expanded
+                    input.input.is-smallis-family-monospace(name='options' value=cliOptions)
+            // download
+            .field.is-horizontal
+              .field-label
+                label Download
+              .field-body
+                .field
+                  .control
+                    label.checkbox
+                      input.checkbox(name='download' type='checkbox' checked=download)
+            // Submit
+            .field
+              .field-label
+              .field-body
+                .field.is-grouped.is-grouped-right
+                  button.button.is-danger Open

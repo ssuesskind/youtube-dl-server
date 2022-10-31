@@ -2,6 +2,9 @@
 
 import express, {Response} from 'express';
 import {YoutubeDl} from './YoutubeDl';
+import path from 'path';
+
+const packageJson = require('../package.json');
 
 const cors = require('cors');
 const compression = require('compression');
@@ -15,6 +18,10 @@ const port = process.env.PORT || 8080;
 app.use(compression());
 app.use(cors());
 app.use(boolParser());
+
+app.use(express.static(path.join(__dirname, '..', 'public')));
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, '..', 'views'));
 
 app.get('/v1/video', async (req, res) => {
     try {
@@ -79,6 +86,20 @@ app.get('/watch', async (req, res) => {
         res.status(500);
         res.send(e);
     }
+});
+
+app.get('/', async (req, res) => {
+    const defaultParameters = {
+        url: 'youtu.be/dQw4w9WgXcQ',
+        cli: ['yt-dlp', 'youtube-dl'],
+        download: false,
+        cliOptions: '--format best'
+    };
+
+    res.render('home', {
+        ...packageJson,
+        ...defaultParameters
+    });
 });
 
 app.listen(port, () => {
