@@ -1,12 +1,10 @@
 {
   "name": "youtube-dl-server",
-  "version": "1.3.0-alpha.3",
+  "version": "1.3.0-alpha.4",
   "description": "Youtube Rest API, powered by youtube-dl",
   "scripts": {
     "start": "ts-node src/app.ts",
-    "build": "tsc -p .",
-    "download": "node ./tools/download.js",
-    "postinstall": "npm run download"
+    "build": "tsc -p ."
   },
   "main": "./dist/app.js",
   "bin": {
