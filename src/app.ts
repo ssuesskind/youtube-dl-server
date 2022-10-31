@@ -56,6 +56,8 @@ app.get('/v1/video', async (req, res) => {
     }
 });
 
+app.get(['/video', '/info'], async (req, res) => res.redirect('/v1/video'));
+
 app.get('/watch', async (req, res) => {
     try {
         const v = req.query.v as string;
