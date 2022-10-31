@@ -10,7 +10,8 @@ export class YoutubeDl {
                                          schema?: string[]) {
         options = options || {};
         const cli = options.cli || process.env.CLI || 'youtube-dl';
-        const cliOptions = options.cliOptions || '--format \"best\"';
+        let cliOptions = options.cliOptions || '--format \"best\"';
+        cliOptions = cli === 'yt-dlp' ? `${cliOptions} --no-config --no-sponsorblock` : cliOptions
 
         const bin = path.resolve(__dirname, '../tools/bin/' + cli + (isWin ? '.exe' : ''));
         const command = `${bin} ${cliOptions} --dump-single-json --no-warnings --restrict-filenames ${url}`;
